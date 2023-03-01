@@ -49,7 +49,7 @@ digit          [0-9]
 \#.*			{ ; }
 [ \t]*		    { ; }
 [\n]			{ v[27]++;line_no++; }
-.			    { return *yytext; }
+.               { yyerror("Unrecognized Input! "); return *yytext;}
 
 [-]?{digit}+                		{ v[28]++;return NUMBER; }
 [-]?{digit}+\.{digit}{1,6}  		{ v[29]++;return FLOAT_NUM; }
@@ -66,18 +66,22 @@ int yywrap(void) {
 return 1;
 }
 
+int yyerror (char const *s) {
+   fprintf (stderr, "%s\n", s);
+   return 1;
+}
 
 
 int main() 
   
 { 
-    extern FILE *yyin, *yyout;
+    // extern FILE *yyin, *yyout;
    
-    yyin = fopen("input.txt", "r");
+    // yyin = fopen("input.txt", "r");
       
     yylex();
       
-    printf("\ntotal no. of token = %d\n\n", line_no);
+    // printf("\ntotal no. of token = %d\n\n", line_no);
 
     printf("output      : %d\n",v[0]);
     printf("input       : %d\n",v[1]);
