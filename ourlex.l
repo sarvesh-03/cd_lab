@@ -11,54 +11,56 @@ digit          [0-9]
 
 %%
 
-"output"		{ v[0]++;return PRINTFF; }
-"input"		    { v[1]++;return SCANFF; }
+"output"		{ v[0]++; }
+"input"		    { v[1]++; }
 
-"if"            { v[2]++;return IF; }
-"otherwise"	    { v[3]++;return ELSE; }
-"asLongAs"	    { v[4]++;return WHILE; }
-"return" 		{ v[5]++;return RETURN; }
+"if"            { v[2]++; }
+"otherwise"	    { v[3]++; }
+"asLongAs"	    { v[4]++; }
+"return" 		{ v[5]++; }
 
-"declare"	    { v[6]++;return DECLARE; }
-"+"		        { v[7]++;return ADD; }
-"-"		        { v[8]++;return SUB; }
-"*"		        { v[9]++;return MULT; }
-"/"		        { v[10]++;return DIV; }
-"log"		    { v[11]++;return LOG; }
-"exp"		    { v[12]++;return POW; }
-
-
-">="		    { v[13]++;return GE; }
-"<="		    { v[14]++;return LE; }
-">"		        { v[15]++;return GT; }
-"<"		        { v[16]++;return LT; }
-"=="		    { v[17]++;return EQ; }
-"=!="		    { v[18]++;return NE; }
-
-"TRUE"		    { v[19]++;return TRUE; }
-"FALSE"		    { v[20]++;return FALSE; }
-"&&"		    { v[21]++;return AND; }
-"||"		    { v[22]++;return OR; }
+"declare"	    { v[6]++; }
+"+"		        { v[7]++; }
+"-"		        { v[8]++; }
+"*"		        { v[9]++; }
+"/"		        { v[10]++; }
+"log"		    { v[11]++; }
+"exp"		    { v[12]++; }
 
 
-"number"		{ v[23]++;return INT; }
-"decimal"		{ v[24]++;return FLOAT; }
-"letter"		{ v[25]++;return CHAR; }
-"boolean"		{ v[26]++;return BOOL; }
+">="		    { v[13]++; }
+"<="		    { v[14]++; }
+">"		        { v[15]++; }
+"<"		        { v[16]++; }
+"=="		    { v[17]++; }
+"=!="		    { v[18]++; }
+
+"TRUE"		    { v[19]++; }
+"FALSE"		    { v[20]++; }
+"&&"		    { v[21]++; }
+"||"		    { v[22]++; }
+
+
+"number"		{ v[23]++; }
+"decimal"		{ v[24]++; }
+"letter"		{ v[25]++; }
+"boolean"		{ v[26]++; }
 
 \#.*			{ ; }
 [ \t]*		    { ; }
-[\n]			{ v[27]++;line_no++; }
-.               { yyerror("Unrecognized Input! "); return *yytext;}
-
-[-]?{digit}+                		{ v[28]++;return NUMBER; }
-[-]?{digit}+\.{digit}{1,6}  		{ v[29]++;return FLOAT_NUM; }
-{alphabet}({alphabet}|{digit})*   	{ v[30]++;return ID; }
+[\n]			{ v[27]++; }
 
 
+[-]?{digit}+                		{ v[28]++; }
+[-]?{digit}+\.{digit}{1,6}  		{ v[29]++; }
+{alphabet}({alphabet}|{digit})*   	{ v[30]++; }
 
-["].*["]                    { v[31]++;return STR; }
-['].[']                     { v[32]++;return CHARACTER; }
+
+
+["].*["]                    { v[31]++; }
+['].[']                     { v[32]++; }
+
+.               { }
 
 %%
 
@@ -75,9 +77,9 @@ int yyerror (char const *s) {
 int main() 
   
 { 
-    // extern FILE *yyin, *yyout;
+    extern FILE *yyin, *yyout;
    
-    // yyin = fopen("input.txt", "r");
+    yyin = fopen("input.txt", "r");
       
     yylex();
       
@@ -111,8 +113,8 @@ int main()
     printf("letter      : %d\n",v[25]);
     printf("boolean     : %d\n",v[26]);
     printf("new line    : %d\n",v[27]);
-    printf("number      : %d\n",v[28]);
-    printf("floatNumber : %d\n",v[29]);
+    printf("int value   : %d\n",v[28]);
+    printf("float value : %d\n",v[29]);
     printf("id          : %d\n",v[30]);
     printf("string      : %d\n",v[31]);
     printf("character   : %d\n",v[32]);
