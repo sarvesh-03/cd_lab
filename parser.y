@@ -5,7 +5,7 @@
     #include<ctype.h>
     #include"lex.yy.c"
     
-    void yyerror(const char *s);
+    int yyerror(const char *s);
     int yylex();
     int yywrap();
 %}
@@ -26,15 +26,18 @@ datatype: INT
 | CHAR
 ;
 
-body: WHILE '(' condition ')' ':' '{' body '}'
-| IF '(' condition ')' '{' body '}' else
+body: block body
+| 
+;
+
+block: WHILE '(' condition ')' ':' '{' body '}'
+| IF '(' condition ')' ':' '{' body '}' else
 | statement '.' 
-| body body
 | PRINTFF '(' STR ')' '.'
 | SCANFF '(' STR ',' '&' ID ')' '.'
 ;
 
-else: ELSE '{' body '}'
+else: ELSE ':' '{' body '}'
 |
 ;
 
@@ -52,16 +55,34 @@ init: '=' value
 |
 ;
 
-expression: expression arithmetic expression
-| value
-| LOG '(' expression ',' expression ')'
+
+expression : expression addops term 
+| term 
 ;
 
-arithmetic: ADD 
-| SUB 
-| MULT
+term : term mulops factor 
+| factor 
+; 
+
+factor : base exponent base 
+| LOG '(' value ',' value ')' 
+| base
+;
+
+base : value 
+| '(' expression ')' 
+;
+
+
+exponent: POW
+;
+
+mulops: MULT
 | DIV
-| POW
+;
+
+addops: ADD 
+| SUB 
 ;
 
 relop: LT
@@ -85,8 +106,4 @@ return: RETURN value '.'
 
 int main() {
     yyparse();
-}
-
-void yyerror(const char* msg) {
-    fprintf(stderr, "%s\n", msg);
 }

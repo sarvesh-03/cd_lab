@@ -381,19 +381,19 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[122] =
     {   0,
-       29,   29,   38,   36,   29,   30,   36,   28,   36,   36,
-       10,    8,    9,   11,   31,   17,   36,   16,   33,   33,
-       33,   33,   33,   33,   33,   33,   33,   33,   33,   33,
-       36,   29,    0,   34,   28,   22,    0,   31,    0,   15,
-        0,   18,   14,   33,   33,   33,   33,   33,   33,   33,
-        3,   33,   33,   33,   33,   33,   33,   33,   23,   35,
-       32,   19,   33,   33,   33,   33,   33,   13,   33,   33,
-       12,   33,   33,   33,   33,   32,   33,   20,   33,   33,
-       33,   33,   33,   33,   33,   33,   33,   33,   32,   21,
-       33,   33,   33,   33,    2,   33,   33,   33,   33,   33,
+       29,   29,   38,   31,   29,   30,   31,   28,   31,   31,
+       10,    8,    9,   11,   31,   17,   31,   16,   31,   31,
+       31,   31,   31,   31,   31,   31,   31,   31,   31,   31,
+       31,   29,    0,   35,   28,   22,    0,   32,    0,   15,
+        0,   18,   14,   34,   34,   34,   34,   34,   34,   34,
+        3,   34,   34,   34,   34,   34,   34,   34,   23,   36,
+       33,   19,   34,   34,   34,   34,   34,   13,   34,   34,
+       12,   34,   34,   34,   34,   33,   34,   20,   34,   34,
+       34,   34,   34,   34,   34,   34,   34,   34,   33,   21,
+       34,   34,   34,   34,    2,   34,   34,   34,   34,   34,
 
-       32,   33,   33,   33,   33,   26,   24,   33,    1,    6,
-       32,   33,   27,   25,    7,   33,   32,    5,   33,    4,
+       33,   34,   34,   34,   34,   26,   24,   34,    1,    6,
+       33,   34,   27,   25,    7,   34,   33,    5,   34,    4,
         0
     } ;
 
@@ -546,14 +546,12 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "ourlex.l"
-#line 2 "ourlex.l"
-     #include "y.tab.h"   
+#line 1 "lex.l"
+#line 2 "lex.l"
+     #include "y.tab.h"
      int line_no=0;
-     int v[33]={0};
-     
-#line 556 "lex.yy.c"
-#line 557 "lex.yy.c"
+#line 554 "lex.yy.c"
+#line 555 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -770,10 +768,10 @@ YY_DECL
 		}
 
 	{
-#line 12 "ourlex.l"
+#line 10 "lex.l"
 
 
-#line 777 "lex.yy.c"
+#line 775 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -842,191 +840,191 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 14 "ourlex.l"
-{ v[0]++; }
+#line 12 "lex.l"
+{ return PRINTFF; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "ourlex.l"
-{ v[1]++; }
+#line 13 "lex.l"
+{ return SCANFF; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 17 "ourlex.l"
-{ v[2]++; }
+#line 15 "lex.l"
+{ return IF; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 18 "ourlex.l"
-{ v[3]++; }
+#line 16 "lex.l"
+{ return ELSE; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 19 "ourlex.l"
-{ v[4]++; }
+#line 17 "lex.l"
+{ return WHILE; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 20 "ourlex.l"
-{ v[5]++; }
+#line 18 "lex.l"
+{ return RETURN; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 "ourlex.l"
-{ v[6]++; }
+#line 20 "lex.l"
+{ return DECLARE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 23 "ourlex.l"
-{ v[7]++; }
+#line 21 "lex.l"
+{ return ADD; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 24 "ourlex.l"
-{ v[8]++; }
+#line 22 "lex.l"
+{ return SUB; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 25 "ourlex.l"
-{ v[9]++; }
+#line 23 "lex.l"
+{ return MULT; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 26 "ourlex.l"
-{ v[10]++; }
+#line 24 "lex.l"
+{ return DIV; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 27 "ourlex.l"
-{ v[11]++; }
+#line 25 "lex.l"
+{ return LOG; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 28 "ourlex.l"
-{ v[12]++; }
+#line 26 "lex.l"
+{ return POW; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 31 "ourlex.l"
-{ v[13]++; }
+#line 29 "lex.l"
+{ return GE; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 32 "ourlex.l"
-{ v[14]++; }
+#line 30 "lex.l"
+{ return LE; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 33 "ourlex.l"
-{ v[15]++; }
+#line 31 "lex.l"
+{ return GT; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 34 "ourlex.l"
-{ v[16]++; }
+#line 32 "lex.l"
+{ return LT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 35 "ourlex.l"
-{ v[17]++; }
+#line 33 "lex.l"
+{ return EQ; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 36 "ourlex.l"
-{ v[18]++; }
+#line 34 "lex.l"
+{ return NE; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 38 "ourlex.l"
-{ v[19]++; }
+#line 36 "lex.l"
+{ return TRUE; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 39 "ourlex.l"
-{ v[20]++; }
+#line 37 "lex.l"
+{ return FALSE; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 40 "ourlex.l"
-{ v[21]++; }
+#line 38 "lex.l"
+{ return AND; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 41 "ourlex.l"
-{ v[22]++; }
+#line 39 "lex.l"
+{ return OR; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 44 "ourlex.l"
-{ v[23]++; }
+#line 42 "lex.l"
+{ return INT; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 45 "ourlex.l"
-{ v[24]++; }
+#line 43 "lex.l"
+{ return FLOAT; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 46 "ourlex.l"
-{ v[25]++; }
+#line 44 "lex.l"
+{ return CHAR; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 47 "ourlex.l"
-{ v[26]++; }
+#line 45 "lex.l"
+{ return BOOL; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 49 "ourlex.l"
+#line 47 "lex.l"
 { ; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 50 "ourlex.l"
+#line 48 "lex.l"
 { ; }
 	YY_BREAK
 case 30:
 /* rule 30 can match eol */
 YY_RULE_SETUP
-#line 51 "ourlex.l"
-{ v[27]++; }
+#line 49 "lex.l"
+{ line_no++; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 54 "ourlex.l"
-{ v[28]++; }
+#line 51 "lex.l"
+{ yyerror("Unrecognized Input! "); return *yytext;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 55 "ourlex.l"
-{ v[29]++; }
+#line 54 "lex.l"
+{ return NUMBER; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 56 "ourlex.l"
-{ v[30]++; }
+#line 55 "lex.l"
+{ return FLOAT_NUM; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 60 "ourlex.l"
-{ v[31]++; }
+#line 56 "lex.l"
+{ return ID; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 61 "ourlex.l"
-{ v[32]++; }
+#line 60 "lex.l"
+{ return STR; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 63 "ourlex.l"
-{ }
+#line 61 "lex.l"
+{ return CHARACTER; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 65 "ourlex.l"
+#line 64 "lex.l"
 ECHO;
 	YY_BREAK
-#line 1030 "lex.yy.c"
+#line 1028 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2043,7 +2041,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 65 "ourlex.l"
+#line 64 "lex.l"
 
 
 int yywrap(void) {
@@ -2053,53 +2051,5 @@ return 1;
 int yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
    return 1;
-}
-
-
-int main() 
-  
-{ 
-    extern FILE *yyin, *yyout;
-   
-    yyin = fopen("input.txt", "r");
-      
-    yylex();
-      
-    // printf("\ntotal no. of token = %d\n\n", line_no);
-
-    printf("output      : %d\n",v[0]);
-    printf("input       : %d\n",v[1]);
-    printf("if          : %d\n",v[2]);       
-    printf("otherwise   : %d\n",v[3]);
-    printf("asLongAs    : %d\n",v[4]);
-    printf("return      : %d\n",v[5]);
-    printf("declare     : %d\n",v[6]);
-    printf("+           : %d\n",v[7]);
-    printf("-           : %d\n",v[8]);
-    printf("*           : %d\n",v[9]);
-    printf("/           : %d\n",v[10]);
-    printf("log         : %d\n",v[11]);
-    printf("exp         : %d\n",v[12]);
-    printf(">=          : %d\n",v[13]);
-    printf("<=          : %d\n",v[14]);
-    printf(">           : %d\n",v[15]);
-    printf("<           : %d\n",v[16]);
-    printf("==          : %d\n",v[17]);
-    printf("=!=         : %d\n",v[18]);
-    printf("TRUE        : %d\n",v[19]);
-    printf("FALSE       : %d\n",v[20]);
-    printf("&&          : %d\n",v[21]);
-    printf("||          : %d\n",v[22]);
-    printf("number      : %d\n",v[23]);
-    printf("decimal     : %d\n",v[24]);
-    printf("letter      : %d\n",v[25]);
-    printf("boolean     : %d\n",v[26]);
-    printf("new line    : %d\n",v[27]);
-    printf("int value   : %d\n",v[28]);
-    printf("float value : %d\n",v[29]);
-    printf("id          : %d\n",v[30]);
-    printf("string      : %d\n",v[31]);
-    printf("character   : %d\n",v[32]);
-
 }
 
