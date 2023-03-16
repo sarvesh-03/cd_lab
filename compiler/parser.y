@@ -105,5 +105,8 @@ return: RETURN value '.'
 %%
 
 int main() {
+    extern FILE *yyin, *yyout;
+   
+    yyin = fopen("input1.txt", "r");
     yyparse();
 }

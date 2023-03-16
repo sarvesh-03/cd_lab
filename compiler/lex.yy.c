@@ -381,19 +381,19 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[122] =
     {   0,
-       29,   29,   38,   31,   29,   30,   31,   28,   31,   31,
-       10,    8,    9,   11,   31,   17,   31,   16,   31,   31,
-       31,   31,   31,   31,   31,   31,   31,   31,   31,   31,
-       31,   29,    0,   35,   28,   22,    0,   32,    0,   15,
-        0,   18,   14,   34,   34,   34,   34,   34,   34,   34,
-        3,   34,   34,   34,   34,   34,   34,   34,   23,   36,
-       33,   19,   34,   34,   34,   34,   34,   13,   34,   34,
-       12,   34,   34,   34,   34,   33,   34,   20,   34,   34,
-       34,   34,   34,   34,   34,   34,   34,   34,   33,   21,
-       34,   34,   34,   34,    2,   34,   34,   34,   34,   34,
+       29,   29,   38,   36,   29,   30,   36,   28,   36,   36,
+       10,    8,    9,   11,   31,   17,   36,   16,   33,   33,
+       33,   33,   33,   33,   33,   33,   33,   33,   33,   33,
+       36,   29,    0,   34,   28,   22,    0,   31,    0,   15,
+        0,   18,   14,   33,   33,   33,   33,   33,   33,   33,
+        3,   33,   33,   33,   33,   33,   33,   33,   23,   35,
+       32,   19,   33,   33,   33,   33,   33,   13,   33,   33,
+       12,   33,   33,   33,   33,   32,   33,   20,   33,   33,
+       33,   33,   33,   33,   33,   33,   33,   33,   32,   21,
+       33,   33,   33,   33,    2,   33,   33,   33,   33,   33,
 
-       33,   34,   34,   34,   34,   26,   24,   34,    1,    6,
-       33,   34,   27,   25,    7,   34,   33,    5,   34,    4,
+       32,   33,   33,   33,   33,   26,   24,   33,    1,    6,
+       32,   33,   27,   25,    7,   33,   32,    5,   33,    4,
         0
     } ;
 
@@ -991,33 +991,33 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 51 "lex.l"
-{ yyerror("Unrecognized Input! "); return *yytext;}
+#line 52 "lex.l"
+{ return NUMBER; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 54 "lex.l"
-{ return NUMBER; }
+#line 53 "lex.l"
+{ return FLOAT_NUM; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 55 "lex.l"
-{ return FLOAT_NUM; }
+#line 54 "lex.l"
+{ return ID; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 56 "lex.l"
-{ return ID; }
+#line 58 "lex.l"
+{ return STR; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 60 "lex.l"
-{ return STR; }
+#line 59 "lex.l"
+{ return CHARACTER; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 61 "lex.l"
-{ return CHARACTER; }
+{ return *yytext;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP

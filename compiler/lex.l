@@ -48,8 +48,6 @@ digit          [0-9]
 [ \t]*			{ ; }
 [\n]			{ line_no++; }
 
-.         { yyerror("Unrecognized Input! "); return *yytext;}
-
 
 [-]?{digit}+                		{ return NUMBER; }
 [-]?{digit}+\.{digit}{1,6}  		{ return FLOAT_NUM; }
@@ -59,6 +57,8 @@ digit          [0-9]
 
 ["].*["]                    { return STR; }
 ['].[']                     { return CHARACTER; }
+
+.                           { return *yytext;}
 
 
 %%
