@@ -6,8 +6,9 @@
     #include"lex.yy.c"
     
     int yyerror(const char *s);
-    int yylex();
+    int yylex(void);
     int yywrap();
+    int success = 1;
 %}
 
 %token DECLARE CHARACTER PRINTFF SCANFF INT BOOL FLOAT CHAR WHILE IF ELSE TRUE FALSE NUMBER FLOAT_NUM ID LE GE EQ NE GT LT AND OR STR ADD MULT DIV SUB RETURN LOG POW 
@@ -109,4 +110,15 @@ int main() {
    
     yyin = fopen("input1.txt", "r");
     yyparse();
+    if(success)
+        printf("Parsing Successful\n");
+    return 0;
+}
+
+int yyerror(const char *msg)
+{
+    extern int yylineno;
+    printf("Parsing Failed\nLine Number: %d %s\n",yylineno,msg);
+    success = 0;
+    return 0;
 }

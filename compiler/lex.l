@@ -58,16 +58,12 @@ digit          [0-9]
 ["].*["]                    { return STR; }
 ['].[']                     { return CHARACTER; }
 
-.                           { return *yytext;}
+"."|"="|","|"{"|"}"|"("|")"|"["|"]"|"*"|"+"|"-"|"/"|"?"|":"|"&"|"|"|"^"|"!"|"~"|"%"|"<"|">" {return yytext[0];}
 
 
 %%
 
 int yywrap(void) {
-return 1;
-}
-
-int yyerror (char const *s) {
-   fprintf (stderr, "%s\n", s);
    return 1;
 }
+

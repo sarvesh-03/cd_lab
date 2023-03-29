@@ -1,6 +1,6 @@
 number main()
 {
-    declare x number = 5.
+    declare x number = 5
     asLongAs(x < 5):
     {
         x = x + 1.
