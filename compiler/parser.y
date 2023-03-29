@@ -12,7 +12,7 @@
 %}
 
 %token DECLARE CHARACTER PRINTFF SCANFF INT BOOL FLOAT CHAR WHILE IF ELSE TRUE FALSE NUMBER FLOAT_NUM ID LE GE EQ NE GT LT AND OR STR ADD MULT DIV SUB RETURN LOG POW 
-
+%define parse.error verbose
 %%
 
 program: entry '(' ')' '{' body return '}'
