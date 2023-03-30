@@ -103,7 +103,10 @@
 #  endif
 # endif
 
-
+/* Use api.header.include to #include this header
+   instead of duplicating it here.  */
+#ifndef YY_YY_Y_TAB_H_INCLUDED
+# define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -208,7 +211,7 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-
+#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -1564,7 +1567,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1568 "y.tab.c"
+#line 1571 "y.tab.c"
 
       default: break;
     }
@@ -1794,7 +1797,7 @@ yyreturnlab:
 int main() {
     extern FILE *yyin, *yyout;
    
-    yyin = fopen("input1.txt", "r");
+    // yyin = fopen("input1.txt", "r");
     yyparse();
     if(success)
         printf("Parsing Successful\n");

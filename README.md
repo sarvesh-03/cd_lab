@@ -3,9 +3,9 @@ lex lex.l
 ```
 ```bash
 yacc -v -d parser.y
-gcc -ll y.tab.c
+gcc y.tab.c
 ```
 
 ```bash
-./a.out<input1.txt
+./a.out<input.txt
 ```
