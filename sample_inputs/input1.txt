@@ -1,0 +1,8 @@
+number main(){
+    declare number y = 5.
+    asLongAs(x<=10){
+        x=x+1.
+    }
+    output("The Value of x is:", &x).
+    return 0.
+}

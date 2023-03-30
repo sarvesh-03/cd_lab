@@ -1,0 +1,1143 @@
+Terminals unused in grammar
+
+    CHARACTER
+    BOOL
+    AND
+    OR
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: entry '(' ')' '{' body return '}'
+
+    2 entry: datatype ID
+
+    3 datatype: INT
+    4         | FLOAT
+    5         | CHAR
+
+    6 body: block body
+    7     | ε
+
+    8 block: WHILE '(' condition ')' ':' '{' body '}'
+    9      | IF '(' condition ')' ':' '{' body '}' else
+   10      | statement '.'
+   11      | PRINTFF '(' STR ')' '.'
+   12      | SCANFF '(' STR ',' '&' ID ')' '.'
+
+   13 else: ELSE ':' '{' body '}'
+   14     | ε
+
+   15 condition: value relop value
+   16          | TRUE
+   17          | FALSE
+
+   18 statement: DECLARE ID datatype init
+   19          | ID '=' expression
+   20          | ID relop expression
+
+   21 init: '=' value
+   22     | ε
+
+   23 expression: expression addops term
+   24           | term
+
+   25 term: term mulops factor
+   26     | factor
+
+   27 factor: base exponent base
+   28       | LOG '(' value ',' value ')'
+   29       | base
+
+   30 base: value
+   31     | '(' expression ')'
+
+   32 exponent: POW
+
+   33 mulops: MULT
+   34       | DIV
+
+   35 addops: ADD
+   36       | SUB
+
+   37 relop: LT
+   38      | GT
+   39      | LE
+   40      | GE
+   41      | EQ
+   42      | NE
+
+   43 value: NUMBER
+   44      | FLOAT_NUM
+   45      | ID
+
+   46 return: RETURN value '.'
+   47       | ε
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '&' (38) 12
+    '(' (40) 1 8 9 11 12 28 31
+    ')' (41) 1 8 9 11 12 28 31
+    ',' (44) 12 28
+    '.' (46) 10 11 12 46
+    ':' (58) 8 9 13
+    '=' (61) 19 21
+    '{' (123) 1 8 9 13
+    '}' (125) 1 8 9 13
+    error (256)
+    DECLARE (258) 18
+    CHARACTER (259)
+    PRINTFF (260) 11
+    SCANFF (261) 12
+    INT (262) 3
+    BOOL (263)
+    FLOAT (264) 4
+    CHAR (265) 5
+    WHILE (266) 8
+    IF (267) 9
+    ELSE (268) 13
+    TRUE (269) 16
+    FALSE (270) 17
+    NUMBER (271) 43
+    FLOAT_NUM (272) 44
+    ID (273) 2 12 18 19 20 45
+    LE (274) 39
+    GE (275) 40
+    EQ (276) 41
+    NE (277) 42
+    GT (278) 38
+    LT (279) 37
+    AND (280)
+    OR (281)
+    STR (282) 11 12
+    ADD (283) 35
+    MULT (284) 33
+    DIV (285) 34
+    SUB (286) 36
+    RETURN (287) 46
+    LOG (288) 28
+    POW (289) 32
+
+
+Nonterminals, with rules where they appear
+
+    $accept (44)
+        on left: 0
+    program (45)
+        on left: 1
+        on right: 0
+    entry (46)
+        on left: 2
+        on right: 1
+    datatype (47)
+        on left: 3 4 5
+        on right: 2 18
+    body (48)
+        on left: 6 7
+        on right: 1 6 8 9 13
+    block (49)
+        on left: 8 9 10 11 12
+        on right: 6
+    else (50)
+        on left: 13 14
+        on right: 9
+    condition (51)
+        on left: 15 16 17
+        on right: 8 9
+    statement (52)
+        on left: 18 19 20
+        on right: 10
+    init (53)
+        on left: 21 22
+        on right: 18
+    expression (54)
+        on left: 23 24
+        on right: 19 20 23 31
+    term (55)
+        on left: 25 26
+        on right: 23 24 25
+    factor (56)
+        on left: 27 28 29
+        on right: 25 26
+    base (57)
+        on left: 30 31
+        on right: 27 29
+    exponent (58)
+        on left: 32
+        on right: 27
+    mulops (59)
+        on left: 33 34
+        on right: 25
+    addops (60)
+        on left: 35 36
+        on right: 23
+    relop (61)
+        on left: 37 38 39 40 41 42
+        on right: 15 20
+    value (62)
+        on left: 43 44 45
+        on right: 15 21 28 30 46
+    return (63)
+        on left: 46 47
+        on right: 1
+
+
+State 0
+
+    0 $accept: • program $end
+
+    INT    shift, and go to state 1
+    FLOAT  shift, and go to state 2
+    CHAR   shift, and go to state 3
+
+    program   go to state 4
+    entry     go to state 5
+    datatype  go to state 6
+
+
+State 1
+
+    3 datatype: INT •
+
+    $default  reduce using rule 3 (datatype)
+
+
+State 2
+
+    4 datatype: FLOAT •
+
+    $default  reduce using rule 4 (datatype)
+
+
+State 3
+
+    5 datatype: CHAR •
+
+    $default  reduce using rule 5 (datatype)
+
+
+State 4
+
+    0 $accept: program • $end
+
+    $end  shift, and go to state 7
+
+
+State 5
+
+    1 program: entry • '(' ')' '{' body return '}'
+
+    '('  shift, and go to state 8
+
+
+State 6
+
+    2 entry: datatype • ID
+
+    ID  shift, and go to state 9
+
+
+State 7
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 8
+
+    1 program: entry '(' • ')' '{' body return '}'
+
+    ')'  shift, and go to state 10
+
+
+State 9
+
+    2 entry: datatype ID •
+
+    $default  reduce using rule 2 (entry)
+
+
+State 10
+
+    1 program: entry '(' ')' • '{' body return '}'
+
+    '{'  shift, and go to state 11
+
+
+State 11
+
+    1 program: entry '(' ')' '{' • body return '}'
+
+    DECLARE  shift, and go to state 12
+    PRINTFF  shift, and go to state 13
+    SCANFF   shift, and go to state 14
+    WHILE    shift, and go to state 15
+    IF       shift, and go to state 16
+    ID       shift, and go to state 17
+
+    $default  reduce using rule 7 (body)
+
+    body       go to state 18
+    block      go to state 19
+    statement  go to state 20
+
+
+State 12
+
+   18 statement: DECLARE • ID datatype init
+
+    ID  shift, and go to state 21
+
+
+State 13
+
+   11 block: PRINTFF • '(' STR ')' '.'
+
+    '('  shift, and go to state 22
+
+
+State 14
+
+   12 block: SCANFF • '(' STR ',' '&' ID ')' '.'
+
+    '('  shift, and go to state 23
+
+
+State 15
+
+    8 block: WHILE • '(' condition ')' ':' '{' body '}'
+
+    '('  shift, and go to state 24
+
+
+State 16
+
+    9 block: IF • '(' condition ')' ':' '{' body '}' else
+
+    '('  shift, and go to state 25
+
+
+State 17
+
+   19 statement: ID • '=' expression
+   20          | ID • relop expression
+
+    LE   shift, and go to state 26
+    GE   shift, and go to state 27
+    EQ   shift, and go to state 28
+    NE   shift, and go to state 29
+    GT   shift, and go to state 30
+    LT   shift, and go to state 31
+    '='  shift, and go to state 32
+
+    relop  go to state 33
+
+
+State 18
+
+    1 program: entry '(' ')' '{' body • return '}'
+
+    RETURN  shift, and go to state 34
+
+    $default  reduce using rule 47 (return)
+
+    return  go to state 35
+
+
+State 19
+
+    6 body: block • body
+
+    DECLARE  shift, and go to state 12
+    PRINTFF  shift, and go to state 13
+    SCANFF   shift, and go to state 14
+    WHILE    shift, and go to state 15
+    IF       shift, and go to state 16
+    ID       shift, and go to state 17
+
+    $default  reduce using rule 7 (body)
+
+    body       go to state 36
+    block      go to state 19
+    statement  go to state 20
+
+
+State 20
+
+   10 block: statement • '.'
+
+    '.'  shift, and go to state 37
+
+
+State 21
+
+   18 statement: DECLARE ID • datatype init
+
+    INT    shift, and go to state 1
+    FLOAT  shift, and go to state 2
+    CHAR   shift, and go to state 3
+
+    datatype  go to state 38
+
+
+State 22
+
+   11 block: PRINTFF '(' • STR ')' '.'
+
+    STR  shift, and go to state 39
+
+
+State 23
+
+   12 block: SCANFF '(' • STR ',' '&' ID ')' '.'
+
+    STR  shift, and go to state 40
+
+
+State 24
+
+    8 block: WHILE '(' • condition ')' ':' '{' body '}'
+
+    TRUE       shift, and go to state 41
+    FALSE      shift, and go to state 42
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+
+    condition  go to state 46
+    value      go to state 47
+
+
+State 25
+
+    9 block: IF '(' • condition ')' ':' '{' body '}' else
+
+    TRUE       shift, and go to state 41
+    FALSE      shift, and go to state 42
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+
+    condition  go to state 48
+    value      go to state 47
+
+
+State 26
+
+   39 relop: LE •
+
+    $default  reduce using rule 39 (relop)
+
+
+State 27
+
+   40 relop: GE •
+
+    $default  reduce using rule 40 (relop)
+
+
+State 28
+
+   41 relop: EQ •
+
+    $default  reduce using rule 41 (relop)
+
+
+State 29
+
+   42 relop: NE •
+
+    $default  reduce using rule 42 (relop)
+
+
+State 30
+
+   38 relop: GT •
+
+    $default  reduce using rule 38 (relop)
+
+
+State 31
+
+   37 relop: LT •
+
+    $default  reduce using rule 37 (relop)
+
+
+State 32
+
+   19 statement: ID '=' • expression
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+    LOG        shift, and go to state 49
+    '('        shift, and go to state 50
+
+    expression  go to state 51
+    term        go to state 52
+    factor      go to state 53
+    base        go to state 54
+    value       go to state 55
+
+
+State 33
+
+   20 statement: ID relop • expression
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+    LOG        shift, and go to state 49
+    '('        shift, and go to state 50
+
+    expression  go to state 56
+    term        go to state 52
+    factor      go to state 53
+    base        go to state 54
+    value       go to state 55
+
+
+State 34
+
+   46 return: RETURN • value '.'
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+
+    value  go to state 57
+
+
+State 35
+
+    1 program: entry '(' ')' '{' body return • '}'
+
+    '}'  shift, and go to state 58
+
+
+State 36
+
+    6 body: block body •
+
+    $default  reduce using rule 6 (body)
+
+
+State 37
+
+   10 block: statement '.' •
+
+    $default  reduce using rule 10 (block)
+
+
+State 38
+
+   18 statement: DECLARE ID datatype • init
+
+    '='  shift, and go to state 59
+
+    $default  reduce using rule 22 (init)
+
+    init  go to state 60
+
+
+State 39
+
+   11 block: PRINTFF '(' STR • ')' '.'
+
+    ')'  shift, and go to state 61
+
+
+State 40
+
+   12 block: SCANFF '(' STR • ',' '&' ID ')' '.'
+
+    ','  shift, and go to state 62
+
+
+State 41
+
+   16 condition: TRUE •
+
+    $default  reduce using rule 16 (condition)
+
+
+State 42
+
+   17 condition: FALSE •
+
+    $default  reduce using rule 17 (condition)
+
+
+State 43
+
+   43 value: NUMBER •
+
+    $default  reduce using rule 43 (value)
+
+
+State 44
+
+   44 value: FLOAT_NUM •
+
+    $default  reduce using rule 44 (value)
+
+
+State 45
+
+   45 value: ID •
+
+    $default  reduce using rule 45 (value)
+
+
+State 46
+
+    8 block: WHILE '(' condition • ')' ':' '{' body '}'
+
+    ')'  shift, and go to state 63
+
+
+State 47
+
+   15 condition: value • relop value
+
+    LE  shift, and go to state 26
+    GE  shift, and go to state 27
+    EQ  shift, and go to state 28
+    NE  shift, and go to state 29
+    GT  shift, and go to state 30
+    LT  shift, and go to state 31
+
+    relop  go to state 64
+
+
+State 48
+
+    9 block: IF '(' condition • ')' ':' '{' body '}' else
+
+    ')'  shift, and go to state 65
+
+
+State 49
+
+   28 factor: LOG • '(' value ',' value ')'
+
+    '('  shift, and go to state 66
+
+
+State 50
+
+   31 base: '(' • expression ')'
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+    LOG        shift, and go to state 49
+    '('        shift, and go to state 50
+
+    expression  go to state 67
+    term        go to state 52
+    factor      go to state 53
+    base        go to state 54
+    value       go to state 55
+
+
+State 51
+
+   19 statement: ID '=' expression •
+   23 expression: expression • addops term
+
+    ADD  shift, and go to state 68
+    SUB  shift, and go to state 69
+
+    $default  reduce using rule 19 (statement)
+
+    addops  go to state 70
+
+
+State 52
+
+   24 expression: term •
+   25 term: term • mulops factor
+
+    MULT  shift, and go to state 71
+    DIV   shift, and go to state 72
+
+    $default  reduce using rule 24 (expression)
+
+    mulops  go to state 73
+
+
+State 53
+
+   26 term: factor •
+
+    $default  reduce using rule 26 (term)
+
+
+State 54
+
+   27 factor: base • exponent base
+   29       | base •
+
+    POW  shift, and go to state 74
+
+    $default  reduce using rule 29 (factor)
+
+    exponent  go to state 75
+
+
+State 55
+
+   30 base: value •
+
+    $default  reduce using rule 30 (base)
+
+
+State 56
+
+   20 statement: ID relop expression •
+   23 expression: expression • addops term
+
+    ADD  shift, and go to state 68
+    SUB  shift, and go to state 69
+
+    $default  reduce using rule 20 (statement)
+
+    addops  go to state 70
+
+
+State 57
+
+   46 return: RETURN value • '.'
+
+    '.'  shift, and go to state 76
+
+
+State 58
+
+    1 program: entry '(' ')' '{' body return '}' •
+
+    $default  reduce using rule 1 (program)
+
+
+State 59
+
+   21 init: '=' • value
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+
+    value  go to state 77
+
+
+State 60
+
+   18 statement: DECLARE ID datatype init •
+
+    $default  reduce using rule 18 (statement)
+
+
+State 61
+
+   11 block: PRINTFF '(' STR ')' • '.'
+
+    '.'  shift, and go to state 78
+
+
+State 62
+
+   12 block: SCANFF '(' STR ',' • '&' ID ')' '.'
+
+    '&'  shift, and go to state 79
+
+
+State 63
+
+    8 block: WHILE '(' condition ')' • ':' '{' body '}'
+
+    ':'  shift, and go to state 80
+
+
+State 64
+
+   15 condition: value relop • value
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+
+    value  go to state 81
+
+
+State 65
+
+    9 block: IF '(' condition ')' • ':' '{' body '}' else
+
+    ':'  shift, and go to state 82
+
+
+State 66
+
+   28 factor: LOG '(' • value ',' value ')'
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+
+    value  go to state 83
+
+
+State 67
+
+   23 expression: expression • addops term
+   31 base: '(' expression • ')'
+
+    ADD  shift, and go to state 68
+    SUB  shift, and go to state 69
+    ')'  shift, and go to state 84
+
+    addops  go to state 70
+
+
+State 68
+
+   35 addops: ADD •
+
+    $default  reduce using rule 35 (addops)
+
+
+State 69
+
+   36 addops: SUB •
+
+    $default  reduce using rule 36 (addops)
+
+
+State 70
+
+   23 expression: expression addops • term
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+    LOG        shift, and go to state 49
+    '('        shift, and go to state 50
+
+    term    go to state 85
+    factor  go to state 53
+    base    go to state 54
+    value   go to state 55
+
+
+State 71
+
+   33 mulops: MULT •
+
+    $default  reduce using rule 33 (mulops)
+
+
+State 72
+
+   34 mulops: DIV •
+
+    $default  reduce using rule 34 (mulops)
+
+
+State 73
+
+   25 term: term mulops • factor
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+    LOG        shift, and go to state 49
+    '('        shift, and go to state 50
+
+    factor  go to state 86
+    base    go to state 54
+    value   go to state 55
+
+
+State 74
+
+   32 exponent: POW •
+
+    $default  reduce using rule 32 (exponent)
+
+
+State 75
+
+   27 factor: base exponent • base
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+    '('        shift, and go to state 50
+
+    base   go to state 87
+    value  go to state 55
+
+
+State 76
+
+   46 return: RETURN value '.' •
+
+    $default  reduce using rule 46 (return)
+
+
+State 77
+
+   21 init: '=' value •
+
+    $default  reduce using rule 21 (init)
+
+
+State 78
+
+   11 block: PRINTFF '(' STR ')' '.' •
+
+    $default  reduce using rule 11 (block)
+
+
+State 79
+
+   12 block: SCANFF '(' STR ',' '&' • ID ')' '.'
+
+    ID  shift, and go to state 88
+
+
+State 80
+
+    8 block: WHILE '(' condition ')' ':' • '{' body '}'
+
+    '{'  shift, and go to state 89
+
+
+State 81
+
+   15 condition: value relop value •
+
+    $default  reduce using rule 15 (condition)
+
+
+State 82
+
+    9 block: IF '(' condition ')' ':' • '{' body '}' else
+
+    '{'  shift, and go to state 90
+
+
+State 83
+
+   28 factor: LOG '(' value • ',' value ')'
+
+    ','  shift, and go to state 91
+
+
+State 84
+
+   31 base: '(' expression ')' •
+
+    $default  reduce using rule 31 (base)
+
+
+State 85
+
+   23 expression: expression addops term •
+   25 term: term • mulops factor
+
+    MULT  shift, and go to state 71
+    DIV   shift, and go to state 72
+
+    $default  reduce using rule 23 (expression)
+
+    mulops  go to state 73
+
+
+State 86
+
+   25 term: term mulops factor •
+
+    $default  reduce using rule 25 (term)
+
+
+State 87
+
+   27 factor: base exponent base •
+
+    $default  reduce using rule 27 (factor)
+
+
+State 88
+
+   12 block: SCANFF '(' STR ',' '&' ID • ')' '.'
+
+    ')'  shift, and go to state 92
+
+
+State 89
+
+    8 block: WHILE '(' condition ')' ':' '{' • body '}'
+
+    DECLARE  shift, and go to state 12
+    PRINTFF  shift, and go to state 13
+    SCANFF   shift, and go to state 14
+    WHILE    shift, and go to state 15
+    IF       shift, and go to state 16
+    ID       shift, and go to state 17
+
+    $default  reduce using rule 7 (body)
+
+    body       go to state 93
+    block      go to state 19
+    statement  go to state 20
+
+
+State 90
+
+    9 block: IF '(' condition ')' ':' '{' • body '}' else
+
+    DECLARE  shift, and go to state 12
+    PRINTFF  shift, and go to state 13
+    SCANFF   shift, and go to state 14
+    WHILE    shift, and go to state 15
+    IF       shift, and go to state 16
+    ID       shift, and go to state 17
+
+    $default  reduce using rule 7 (body)
+
+    body       go to state 94
+    block      go to state 19
+    statement  go to state 20
+
+
+State 91
+
+   28 factor: LOG '(' value ',' • value ')'
+
+    NUMBER     shift, and go to state 43
+    FLOAT_NUM  shift, and go to state 44
+    ID         shift, and go to state 45
+
+    value  go to state 95
+
+
+State 92
+
+   12 block: SCANFF '(' STR ',' '&' ID ')' • '.'
+
+    '.'  shift, and go to state 96
+
+
+State 93
+
+    8 block: WHILE '(' condition ')' ':' '{' body • '}'
+
+    '}'  shift, and go to state 97
+
+
+State 94
+
+    9 block: IF '(' condition ')' ':' '{' body • '}' else
+
+    '}'  shift, and go to state 98
+
+
+State 95
+
+   28 factor: LOG '(' value ',' value • ')'
+
+    ')'  shift, and go to state 99
+
+
+State 96
+
+   12 block: SCANFF '(' STR ',' '&' ID ')' '.' •
+
+    $default  reduce using rule 12 (block)
+
+
+State 97
+
+    8 block: WHILE '(' condition ')' ':' '{' body '}' •
+
+    $default  reduce using rule 8 (block)
+
+
+State 98
+
+    9 block: IF '(' condition ')' ':' '{' body '}' • else
+
+    ELSE  shift, and go to state 100
+
+    $default  reduce using rule 14 (else)
+
+    else  go to state 101
+
+
+State 99
+
+   28 factor: LOG '(' value ',' value ')' •
+
+    $default  reduce using rule 28 (factor)
+
+
+State 100
+
+   13 else: ELSE • ':' '{' body '}'
+
+    ':'  shift, and go to state 102
+
+
+State 101
+
+    9 block: IF '(' condition ')' ':' '{' body '}' else •
+
+    $default  reduce using rule 9 (block)
+
+
+State 102
+
+   13 else: ELSE ':' • '{' body '}'
+
+    '{'  shift, and go to state 103
+
+
+State 103
+
+   13 else: ELSE ':' '{' • body '}'
+
+    DECLARE  shift, and go to state 12
+    PRINTFF  shift, and go to state 13
+    SCANFF   shift, and go to state 14
+    WHILE    shift, and go to state 15
+    IF       shift, and go to state 16
+    ID       shift, and go to state 17
+
+    $default  reduce using rule 7 (body)
+
+    body       go to state 104
+    block      go to state 19
+    statement  go to state 20
+
+
+State 104
+
+   13 else: ELSE ':' '{' body • '}'
+
+    '}'  shift, and go to state 105
+
+
+State 105
+
+   13 else: ELSE ':' '{' body '}' •
+
+    $default  reduce using rule 13 (else)
