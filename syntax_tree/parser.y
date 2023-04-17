@@ -10,11 +10,12 @@
     int yywrap();
     
 
-    void printtree(struct node*);
-    void printInorder(struct node *);
+    // void printtree(struct node*);
+    // void printInorder(struct node *);
     struct node* mknode(struct node *left, struct node *right, char *token);
+    void printBT(struct node*);
 
-    int success = 1;
+    // int success = 1;
     struct node *head;
     struct node { 
         struct node *left; 
@@ -35,7 +36,7 @@
 
 %type <nd_obj> program entry datatype body block else condition statement init expression term factor base exponent mulops addops relop value return 
 
-%define parse.error verbose
+/* %define parse.error verbose */
 %%
 
 program: entry '(' ')' '{' body return '}' { struct node *main = mknode($5.nd, $6.nd, "main"); $$.nd = mknode($1.nd, main, "program"); head = $$.nd; } 
@@ -49,11 +50,11 @@ datatype: INT
 | CHAR
 ;
 
-body: block body
+body: block body {$$.nd = mknode($1.nd, $2.nd, "body");}
 | { $$.nd = NULL; }
 ;
 
-block: WHILE '(' condition ')' ':' '{' body '}' { $$.nd = mknode($3.nd, $7.nd, $1.name); } //
+block: WHILE '(' condition ')' ':' '{' body '}' { $$.nd = mknode($3.nd, $7.nd, $1.name); }
 | IF '(' condition ')' ':' '{' body '}' else { struct node *iff = mknode($3.nd, $7.nd, $1.name); 	$$.nd = mknode(iff, $9.nd, "if-else"); }
 | statement '.' { $$.nd = $1.nd; }
 | PRINTFF '(' STR ')' '.' { $$.nd = mknode(NULL, NULL, "printf"); }
@@ -69,7 +70,7 @@ condition: value relop value { $$.nd = mknode($1.nd, $3.nd, $2.name);}
 | FALSE {$$.nd = NULL; }
 ;
 
-statement: DECLARE ID datatype init {$1.nd = mknode($2.nd, $3.nd, $1.name); $$.nd = mknode($1.nd, $4.nd, "DECLARE");} //
+statement: DECLARE ID datatype init {$2.nd = mknode(NULL, NULL, $2.name); $1.nd = mknode($2.nd, $3.nd, $1.name); $$.nd = mknode($1.nd, $4.nd, "DECLARE");} //
 | ID '=' expression { $1.nd = mknode(NULL, NULL, $1.name); $$.nd = mknode($1.nd, $3.nd, "="); }
 | ID relop expression { $1.nd = mknode(NULL, NULL, $1.name); $$.nd = mknode($1.nd, $3.nd, $2.name ); }
 ;
@@ -127,16 +128,7 @@ return: RETURN value '.'  { $1.nd = mknode(NULL, NULL, "return"); $$.nd = mknode
 
 %%
 
-struct node* mknode(struct node *left, struct node *right, char *token) {	
-	struct node *newnode = (struct node *)malloc(sizeof(struct node));
-	char *newstr = (char *)malloc(strlen(token)+1);
-	strcpy(newstr, token);
-	newnode->left = left;
-	newnode->right = right;
-	newnode->token = newstr;
-	return(newnode);
-}
-
+/* 
 void printtree(struct node* tree) {
 	printf("\n\n Inorder traversal of the Parse Tree: \n\n");
 	printInorder(tree);
@@ -152,29 +144,64 @@ void printInorder(struct node *tree) {
 	if (tree->right) {
 		printInorder(tree->right);
 	}
-}
+}*/
 
 int main() {
     extern FILE *yyin, *yyout;
    
-    yyparse();
-    if(success)
+    int p = -1;
+    p = yyparse();
+    /* if(success)
+        printf("Parsing Successful\n"); */
+    if(p)
         printf("Parsing Successful\n");
 
-
     printf("\n\n");
-	printf("\t\t\t\t\t\t PHASE 2: PARSE TREE: \n\n");
-    // printf(head->token);
-	printtree(head); 
-	printf("\n\n");
-
-    return 0;
+    printf("PARSE TREE");
+    printf("\n\n");
+	printBT(head);
+    printf("\n\n")
+    return p;
 }
 
 int yyerror(const char *msg)
 {
     extern int yylineno;
     printf("Parsing Failed\nLine Number: %d %s\n",yylineno,msg);
-    success = 0;
+    /* success = 0; */
     return 0;
+}
+
+void printBTHelper(char* prefix, struct node* ptr, int isLeft) {
+    if( ptr != NULL ) {
+        printf("%s",prefix);
+        if(isLeft) { printf("├──"); } 
+		else { printf("└──"); }
+        printf("%s",ptr->token);
+		printf("\n");
+		char* addon = isLeft ? "│   " : "    ";
+    	int len2 = strlen(addon);
+    	int len1 = strlen(prefix);
+    	char* result = (char*)malloc(len1 + len2 + 1);
+    	strcpy(result, prefix);
+    	strcpy(result + len1, addon);
+		printBTHelper(result, ptr->left, 1);
+		printBTHelper(result, ptr->right, 0);
+    	free(result);
+    }
+}
+
+void printBT(struct node* ptr) {
+	printf("\n");
+    printBTHelper("", ptr, 0);    
+}
+
+struct node* mknode(struct node *left, struct node *right, char *token) {	
+	struct node *newnode = (struct node *)malloc(sizeof(struct node));
+	char *newstr = (char *)malloc(strlen(token)+1);
+	strcpy(newstr, token);
+	newnode->left = left;
+	newnode->right = right;
+	newnode->token = newstr;
+	return(newnode);
 }
