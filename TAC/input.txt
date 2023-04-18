@@ -1,0 +1,11 @@
+number main()
+{
+    declare x number = 4.
+    if (x<5) : {
+        x = 5.
+    }
+    otherwise:{
+        x=6.
+    }
+    return 0.
+}
