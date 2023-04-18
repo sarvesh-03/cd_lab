@@ -1,11 +1,16 @@
 number main()
 {
     declare x number = 4.
-    if (x<5) : {
-        x = 5.
+    declare y number = 4.
+    if (x>7) : {
+        y = 5.
     }
     otherwise:{
-        x=6.
+        y = 6.
     }
+
+    #output("value of y is \r")
+    #output(y).
+
     return 0.
 }

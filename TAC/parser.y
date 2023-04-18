@@ -155,24 +155,6 @@ return: RETURN value '.'  { $1.nd = mknode(NULL, NULL, "return"); $$.nd = mknode
 
 %%
 
-/* 
-void printtree(struct node* tree) {
-	printf("\n\n Inorder traversal of the Parse Tree: \n\n");
-	printInorder(tree);
-	printf("\n\n");
-}
-
-void printInorder(struct node *tree) {
-	int i;
-	if (tree->left) {
-		printInorder(tree->left);
-	}
-	printf("%s, ", tree->token);
-	if (tree->right) {
-		printInorder(tree->right);
-	}
-}*/
-
 int main() {
     extern FILE *yyin, *yyout;
    
@@ -239,12 +221,4 @@ struct node* mknode(struct node *left, struct node *right, char *token) {
 	newnode->token = newstr;
 	return(newnode);
 }
-/* char *get_type(char *var){
-	for(int i=0; i<count; i++) {
-		// Handle case of use before declaration
-		if(!strcmp(symbol_table[i].id_name, var)) {
-			return symbol_table[i].data_type;
-		}
-	}
-} */
 
