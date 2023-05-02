@@ -2,15 +2,9 @@ number main()
 {
     declare x number = 4.
     declare y number = 4.
-    if (x>7) : {
+    asLongAs (x>7) : {
         y = 5.
     }
-    otherwise:{
-        y = 6.
-    }
-
-    #output("value of y is \r")
-    #output(y).
-
+    x=5.
     return 0.
 }

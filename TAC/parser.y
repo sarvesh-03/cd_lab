@@ -71,16 +71,18 @@ datatype: INT
 | FLOAT 
 | CHAR
 ;
-
+// To be handled
 body: block body {$$.nd = mknode($1.nd, $2.nd, "body");}
 | { $$.nd = NULL; }
 ;
 
-block: WHILE '(' condition ')' ':' '{' body '}' { $$.nd = mknode($3.nd, $7.nd, $1.name); }
-| IF '(' condition ')' { sprintf(icg[ic_idx++], "\nLABEL %s:\n", $3.if_body); } ':' '{' body '}' { sprintf(icg[ic_idx++], "LABEL %s:\n", $3.else_body); } else { struct node *iff = mknode($3.nd, $8.nd, $1.name); 	$$.nd = mknode(iff, $11.nd, "if-else"); sprintf(icg[ic_idx++], "GOTO next\n"); }
+block: WHILE {is_for=1;}'(' condition ')' ':' '{' body '}' { $$.nd = mknode($4.nd, $8.nd, $1.name); 
+    sprintf(icg[ic_idx++], "JUMP to %s\n", $4.if_body);
+	sprintf(icg[ic_idx++], "\nLABEL %s:\n", $4.else_body); }
+| IF {is_for=0;} '(' condition ')' { sprintf(icg[ic_idx++], "\nLABEL %s:\n", $4.if_body); } ':' '{' body '}' { sprintf(icg[ic_idx++], "LABEL %s:\n", $4.else_body); } else { struct node *iff = mknode($4.nd, $9.nd, $1.name); 	$$.nd = mknode(iff, $12.nd, "if-else"); sprintf(icg[ic_idx++], "GOTO next\n"); }
 | statement '.' { $$.nd = $1.nd; }
 | PRINTFF '(' STR ')' '.' { $$.nd = mknode(NULL, NULL, "printf"); }
-| SCANFF '(' STR ',' '&' ID ')' '.' { $$.nd = mknode(NULL, NULL, "scanf"); }
+| SCANFF '(' STR ',' '&' ID ')' '.' { $$.nd = mknode(NULL, NULL, "scanf"); }// To be handled
 ;
 
 else: ELSE ':' '{' body '}' { $$.nd = mknode(NULL, $4.nd, $1.name); }
@@ -89,9 +91,16 @@ else: ELSE ':' '{' body '}' { $$.nd = mknode(NULL, $4.nd, $1.name); }
 
 condition: value relop value { 
     $$.nd = mknode($1.nd, $3.nd, $2.name);
-    sprintf(icg[ic_idx++], "if (%s %s %s) GOTO L%d \nelse GOTO L%d", $1.name, $2.name, $3.name, label, label+1);
-	sprintf($$.if_body, "L%d", label++);
-	sprintf($$.else_body, "L%d", label++);
+    if(is_for) {
+		sprintf($$.if_body, "L%d", label++);
+		sprintf(icg[ic_idx++], "\nLABEL %s:", $$.if_body);
+		sprintf(icg[ic_idx++], "\nif NOT (%s %s %s) GOTO L%d\n", $1.name, $2.name, $3.name, label);
+		sprintf($$.else_body, "L%d", label++);
+	} else {
+		sprintf(icg[ic_idx++], "\nif (%s %s %s) GOTO L%d else GOTO L%d\n", $1.name, $2.name, $3.name, label, label+1);
+		sprintf($$.if_body, "L%d", label++);
+		sprintf($$.else_body, "L%d", label++);
+	}
 }
 | TRUE {$$.nd = NULL; }
 | FALSE {$$.nd = NULL; }
