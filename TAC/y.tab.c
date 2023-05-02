@@ -719,10 +719,10 @@ static const yytype_uint8 yyrline[] =
 {
        0,    64,    64,    67,    70,    71,    72,    75,    76,    79,
       79,    82,    82,    82,    82,    83,    84,    85,    88,    89,
-      92,   105,   106,   109,   110,   111,   114,   115,   119,   120,
-     123,   124,   127,   128,   129,   132,   133,   137,   140,   141,
-     144,   145,   148,   149,   150,   151,   152,   153,   156,   157,
-     158,   161,   162
+      92,   105,   106,   109,   110,   111,   114,   115,   119,   122,
+     125,   128,   131,   132,   133,   136,   137,   141,   144,   145,
+     148,   149,   152,   153,   154,   155,   156,   157,   160,   161,
+     162,   165,   166
 };
 #endif
 
@@ -1503,90 +1503,94 @@ yyreduce:
 
   case 28: /* expression: expression addops term  */
 #line 119 "parser.y"
-                                    { (yyval.nd_obj2).nd = mknode((yyvsp[-2].nd_obj2).nd, (yyvsp[0].nd_obj).nd, (yyvsp[-1].nd_obj).name); }
-#line 1508 "y.tab.c"
+                                    { (yyval.nd_obj2).nd = mknode((yyvsp[-2].nd_obj2).nd, (yyvsp[0].nd_obj).nd, (yyvsp[-1].nd_obj).name); sprintf((yyval.nd_obj2).name, "t%d", temp_var);
+	temp_var++;
+	sprintf(icg[ic_idx++], "%s = %s %s %s\n",  (yyval.nd_obj2).name, (yyvsp[-2].nd_obj2).name, (yyvsp[-1].nd_obj).name, (yyvsp[0].nd_obj).name);}
+#line 1510 "y.tab.c"
     break;
 
   case 29: /* expression: term  */
-#line 120 "parser.y"
+#line 122 "parser.y"
        { (yyval.nd_obj2).nd = (yyvsp[0].nd_obj).nd;}
-#line 1514 "y.tab.c"
+#line 1516 "y.tab.c"
     break;
 
   case 30: /* term: term mulops factor  */
-#line 123 "parser.y"
-                          { (yyval.nd_obj).nd = mknode((yyvsp[-2].nd_obj).nd, (yyvsp[0].nd_obj).nd, (yyvsp[-1].nd_obj).name); }
-#line 1520 "y.tab.c"
+#line 125 "parser.y"
+                          { (yyval.nd_obj).nd = mknode((yyvsp[-2].nd_obj).nd, (yyvsp[0].nd_obj).nd, (yyvsp[-1].nd_obj).name); sprintf((yyval.nd_obj).name, "t%d", temp_var);
+	temp_var++;
+	sprintf(icg[ic_idx++], "%s = %s %s %s\n",  (yyval.nd_obj).name, (yyvsp[-2].nd_obj).name, (yyvsp[-1].nd_obj).name, (yyvsp[0].nd_obj).name); }
+#line 1524 "y.tab.c"
     break;
 
   case 31: /* term: factor  */
-#line 124 "parser.y"
+#line 128 "parser.y"
          {(yyval.nd_obj).nd = (yyvsp[0].nd_obj).nd;}
-#line 1526 "y.tab.c"
+#line 1530 "y.tab.c"
     break;
 
   case 32: /* factor: base exponent base  */
-#line 127 "parser.y"
+#line 131 "parser.y"
                             { (yyval.nd_obj).nd = mknode((yyvsp[-2].nd_obj).nd, (yyvsp[0].nd_obj).nd, (yyvsp[-1].nd_obj).name); }
-#line 1532 "y.tab.c"
+#line 1536 "y.tab.c"
     break;
 
   case 33: /* factor: LOG '(' value ',' value ')'  */
-#line 128 "parser.y"
+#line 132 "parser.y"
                               {(yyval.nd_obj).nd = mknode((yyvsp[-3].nd_obj2).nd, (yyvsp[-1].nd_obj2).nd, (yyvsp[-5].nd_obj).name); }
-#line 1538 "y.tab.c"
+#line 1542 "y.tab.c"
     break;
 
   case 34: /* factor: base  */
-#line 129 "parser.y"
+#line 133 "parser.y"
        {(yyval.nd_obj).nd = (yyvsp[0].nd_obj).nd;}
-#line 1544 "y.tab.c"
+#line 1548 "y.tab.c"
     break;
 
   case 35: /* base: value  */
-#line 132 "parser.y"
+#line 136 "parser.y"
              {(yyval.nd_obj).nd = (yyvsp[0].nd_obj2).nd;}
-#line 1550 "y.tab.c"
+#line 1554 "y.tab.c"
     break;
 
   case 36: /* base: '(' expression ')'  */
-#line 133 "parser.y"
+#line 137 "parser.y"
                      {(yyval.nd_obj).nd = (yyvsp[-1].nd_obj2).nd;}
-#line 1556 "y.tab.c"
+#line 1560 "y.tab.c"
     break;
 
   case 48: /* value: NUMBER  */
-#line 156 "parser.y"
+#line 160 "parser.y"
               {strcpy((yyval.nd_obj2).name, (yyvsp[0].nd_obj).name);(yyval.nd_obj2).nd = mknode(NULL, NULL, (yyvsp[0].nd_obj).name);  sprintf((yyval.nd_obj2).type, "int"); }
-#line 1562 "y.tab.c"
+#line 1566 "y.tab.c"
     break;
 
   case 49: /* value: FLOAT_NUM  */
-#line 157 "parser.y"
+#line 161 "parser.y"
             {strcpy((yyval.nd_obj2).name, (yyvsp[0].nd_obj).name);(yyval.nd_obj2).nd = mknode(NULL, NULL, (yyvsp[0].nd_obj).name);  sprintf((yyval.nd_obj2).type, "float");}
-#line 1568 "y.tab.c"
+#line 1572 "y.tab.c"
     break;
 
   case 50: /* value: ID  */
-#line 158 "parser.y"
+#line 162 "parser.y"
      {strcpy((yyval.nd_obj2).name, (yyvsp[0].nd_obj).name);(yyval.nd_obj2).nd = mknode(NULL, NULL, (yyvsp[0].nd_obj).name);  sprintf((yyval.nd_obj2).type, "Var");}
-#line 1574 "y.tab.c"
+#line 1578 "y.tab.c"
     break;
 
   case 51: /* return: RETURN value '.'  */
-#line 161 "parser.y"
+#line 165 "parser.y"
                           { (yyvsp[-2].nd_obj).nd = mknode(NULL, NULL, "return"); (yyval.nd_obj).nd = mknode((yyvsp[-2].nd_obj).nd, (yyvsp[-1].nd_obj2).nd, "RETURN"); }
-#line 1580 "y.tab.c"
+#line 1584 "y.tab.c"
     break;
 
   case 52: /* return: %empty  */
-#line 162 "parser.y"
+#line 166 "parser.y"
   { (yyval.nd_obj).nd = NULL; }
-#line 1586 "y.tab.c"
+#line 1590 "y.tab.c"
     break;
 
 
-#line 1590 "y.tab.c"
+#line 1594 "y.tab.c"
 
       default: break;
     }
@@ -1779,7 +1783,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 165 "parser.y"
+#line 169 "parser.y"
 
 
 int main() {

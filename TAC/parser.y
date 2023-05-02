@@ -116,11 +116,15 @@ init: '=' value { $$.nd = $2.nd; sprintf($$.type, $2.type);strcpy($$.name, $2.na
 ;
 
 
-expression : expression addops term { $$.nd = mknode($1.nd, $3.nd, $2.name); }
+expression : expression addops term { $$.nd = mknode($1.nd, $3.nd, $2.name); sprintf($$.name, "t%d", temp_var);
+	temp_var++;
+	sprintf(icg[ic_idx++], "%s = %s %s %s\n",  $$.name, $1.name, $2.name, $3.name);}
 | term { $$.nd = $1.nd;}
 ;
 
-term : term mulops factor { $$.nd = mknode($1.nd, $3.nd, $2.name); }
+term : term mulops factor { $$.nd = mknode($1.nd, $3.nd, $2.name); sprintf($$.name, "t%d", temp_var);
+	temp_var++;
+	sprintf(icg[ic_idx++], "%s = %s %s %s\n",  $$.name, $1.name, $2.name, $3.name); }
 | factor {$$.nd = $1.nd;}
 ; 
 
