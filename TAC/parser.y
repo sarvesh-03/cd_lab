@@ -168,28 +168,105 @@ return: RETURN value '.'  { $1.nd = mknode(NULL, NULL, "return"); $$.nd = mknode
 
 %%
 
+void optimize()
+{
+    for(int i=0; i<ic_idx; i++)
+    {
+        
+        for(int j = 0; j < strlen(icg[i]); j++)
+        {
+            if(icg[i][j] == ' ' || icg[i][j] != '=')
+                continue;
+            if(icg[i][j] == '=')
+            {
+                char temp[100];
+                strcpy(temp, icg[i]+j+1);
+
+                int len = strlen(icg[i]);
+                for(int k = 0; k < len; k++){  
+                    if(temp[k] == ' '){  
+                        for(int l=k;l<len;l++)
+                            temp[l] = temp[l+1];  
+                        len--;  
+                    }  
+                }
+
+                //printf("%s", temp);
+
+                if(strcmp(temp,"y+0\n") == 0
+                    || strcmp(temp, "y-0\n") == 0
+                    || strcmp(temp, "0+y\n") == 0
+                    || strcmp(temp, "y*1\n") == 0
+                    || strcmp(temp, "1*y\n") == 0
+                    || strcmp(temp, "y/1\n") == 0)
+                {
+                    sprintf(icg[i]+j+1, " y\n");
+                    break;
+                }
+                else if(strcmp(temp, "0-y\n") == 0)
+                {
+                    sprintf(icg[i]+j+1, " -y\n");
+                    break;
+                }
+                else if(strcmp(temp, "y-y\n") == 0
+                    || strcmp(temp, "0*y\n") == 0
+                    || strcmp(temp, "y*0\n") == 0
+                    || strcmp(temp, "0/y\n") == 0)
+                {
+                    sprintf(icg[i]+j+1, " 0\n");
+                    break;
+                }
+                else if(strcmp(temp, "y/y\n") == 0)
+                {
+                    sprintf(icg[i]+j+1, " 1\n");
+                    break;
+                }
+                else if(strcmp(temp, "y/2\n") == 0)
+                {
+                    sprintf(icg[i]+j+1, " y * 0.5\n");
+                    break;
+                }
+                else if(strcmp(temp, "y*2\n") == 0
+                    || strcmp(temp, "2*y\n") == 0)
+                {
+                    sprintf(icg[i]+j+1, " y + y\n");
+                    break;
+                }
+            }
+        }
+	}
+}
+
 int main() {
     extern FILE *yyin, *yyout;
    
     int p = -1;
     p = yyparse();
-    /* if(success)
+    /* if(p)
         printf("Parsing Successful\n"); */
-    if(p)
-        printf("Parsing Successful\n");
 
-    printf("\n\n");
+    /* printf("\n\n");
     printf("PARSE TREE");
     printf("\n\n");
-	printBT(head);
+	printBT(head); */
 
 	printf("\n\n");
-    printf("THREE ADDRESS CODE");
+    printf("TAC before optimization:");
     printf("\n\n");
     for(int i=0; i<ic_idx; i++){
 		printf("%s", icg[i]);
 	}
     printf("\n\n");
+
+    optimize();
+
+    printf("TAC after optimization:");
+    printf("\n\n");
+    for(int i=0; i<ic_idx; i++){
+		printf("%s", icg[i]);
+	}
+    printf("\n\n");
+
     return p;
 }
 
